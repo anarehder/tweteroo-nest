@@ -1,12 +1,10 @@
 import { User } from './user.entity';
 
 export class Tweet extends User {
-  public name: string;
-  public avatar: string;
-  public tweet: string;
+  private tweet: string;
 
-  constructor(name: string, avatar: string, tweet: string) {
-    super(name, avatar);
+  constructor(username: string, avatar: string, tweet: string) {
+    super(username, avatar);
     this.tweet = tweet;
   }
 }
