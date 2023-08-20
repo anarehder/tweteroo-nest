@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { Tweet } from './entities/tweet.entity';
 
@@ -26,8 +30,7 @@ export class AppService {
     return 'OK';
   }
 
-  getUsers() {
-    console.log(this.users);
+  getUsers(): User[] {
     return this.users;
   }
 
@@ -45,5 +48,20 @@ export class AppService {
     }
 
     return 'OK';
+  }
+
+  getTweets(page: number | null): Tweet[] {
+    if (page !== undefined && (page < 1 || isNaN(page))) {
+      throw new BadRequestException('Informe uma página válida!');
+    }
+    const reversedTweets = this.tweets.reverse();
+    if (page === 1 || page === undefined) {
+      return reversedTweets.slice(0, 15);
+    }
+    if (page > 1) {
+      const start = (page - 1) * 15;
+      const end = start + 14;
+      return reversedTweets.slice(start, end);
+    }
   }
 }
