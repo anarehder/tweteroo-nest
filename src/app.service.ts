@@ -64,4 +64,14 @@ export class AppService {
       return reversedTweets.slice(start, end);
     }
   }
+
+  getTweetsByUser(username: string): Tweet[] {
+    const userTweets: Tweet[] = [];
+
+    const reversedTweets = this.tweets.reverse();
+    reversedTweets.forEach(
+      (tweet) => tweet.username === username && userTweets.push(tweet),
+    );
+    return userTweets;
+  }
 }
