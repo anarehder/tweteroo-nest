@@ -1,6 +1,6 @@
 export class User {
   public username: string;
-  private avatar: string;
+  public avatar: string;
 
   constructor(username: string, avatar: string) {
     this.username = username;
